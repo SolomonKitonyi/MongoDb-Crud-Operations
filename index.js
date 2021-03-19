@@ -40,8 +40,20 @@ async function getCourses(){
     //find({author:'Solomon',isPublished:true})
     //find({price:{$gte:10,$lt:20}})
     //find({price:{$in: [10,15,20]}})
-    find()
-    .or([{author:'Solomon'},{isPublished:true}])
+    //find()
+    //.or([{author:'Solomon'},{isPublished:true}])
+
+    //Starts with
+    find({author: /^Solomon/})
+    
+
+    //ends with
+    //you add i for case insensentive
+    .find({author:/Solomon$/i})
+
+    //contains
+    //you add i for case insensentive
+.find({author:/.*Solomon.*/i})
     .limit(10)
     .sort({name:1})
     .select({name:1,tags:1});
