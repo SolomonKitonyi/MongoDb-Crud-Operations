@@ -72,10 +72,10 @@ async function updateCourse (id){
     //update directly approach
     const course = await Course.findByIdAndUpdate(id,{
         $set:{
-            author:'Tabitha',
+            author:'Elisha',
             isPublished:true
         }
-    });
+    },{new:true});
     console.log(course)
 
 }
