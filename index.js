@@ -59,7 +59,7 @@ async function getCourses(){
     //.select({name:1,tags:1});
     .count()
     console.log(courses);
-}
+};
 
 async function updateCourse (id){
     //querry first approach
@@ -78,5 +78,10 @@ async function updateCourse (id){
     },{new:true});
     console.log(course)
 
+};
+
+async function removeCourse(id){
+    const result = await Course.remove({_id:id});
+    console.log(result)
 }
-updateCourse('60535aa0cfdb4734a9317fc8');
+removeCourse('60535aa0cfdb4734a9317fc8');
