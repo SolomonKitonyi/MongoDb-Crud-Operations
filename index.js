@@ -62,11 +62,21 @@ async function getCourses(){
 }
 
 async function updateCourse (id){
-    const course = await Course.findById(id);
+    //querry first approach
+    /*const course = await Course.findById(id);
     if(!course)return;
         course.isPublished=true;
         course.author='Another author';
         const result= await course.save();
-        console.log(result)
+        console.log(result)*/
+    //update directly approach
+    const result = await Course.updateOne({_id:id},{
+        $set:{
+            author:'Paul',
+            isPublished:false
+        }
+    });
+    console.log(result)
+
 }
 updateCourse('60535aa0cfdb4734a9317fc8');
