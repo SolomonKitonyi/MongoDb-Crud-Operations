@@ -5,20 +5,40 @@ mongoose.connect('mongodb://localhost/playground')
  .catch(err => console.log("Error",err));
 
  const courseSchema = mongoose.Schema({
-     name:{type:String,required:true},
+     name:{
+         type:String,
+         required:true,
+         minlength:4,
+         maxlength:25,
+        // match: /pattern/
+     },
      author:String,
      tags: [String],
      date:{type:Date,default:Date.now},
-     isPublished:Boolean
+     isPublished:Boolean,
+     price:{
+         type:Number,
+         required: function(){return this.isPublished},
+         min:20,
+         max:200
+     },
+     category:{
+         type:String,
+         required:true,
+         enum:['web','mobile','network']
+     }
+
  });
 const Course = mongoose.model('Course',courseSchema);
 
 async function createCourse(){
 const course = new Course({
-    
+    name:'paul',
     author:'Solomon',
     tags:['Angular','Fronted'],
-    isPublished:true
+    isPublished:true,
+    price:15,
+    category:'Networking'
 });
 try {
     const result = await course.save();
