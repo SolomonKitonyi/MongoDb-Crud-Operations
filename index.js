@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/playground')
+mongoose.connect('mongodb://localhost/playground',{useNewUrlParser: true,useUnifiedTopology:true})
  .then(()=>console.log("Connected To MongoDb....."))
  .catch(err => console.log("Error",err));
 
@@ -16,8 +16,12 @@ mongoose.connect('mongodb://localhost/playground')
      tags: {
          type:Array,
          validate:{
-             validator: function(v){
-                 return v && v.lenngth>0;
+             isAsync:true,
+             validator:function(v,callback){
+                 setTimeout(() => {
+                   const result = v && v.length;
+                   callback(result)
+                 }, 2000);
              },
              message:'The course should have atleast one tag'
          }
