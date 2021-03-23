@@ -13,7 +13,15 @@ mongoose.connect('mongodb://localhost/playground')
         // match: /pattern/
      },
      author:String,
-     tags: [String],
+     tags: {
+         type:Array,
+         validate:{
+             validator: function(v){
+                 return v.lenngth>0;
+             },
+             message:'The course should have atleast one tag'
+         }
+     },
      date:{type:Date,default:Date.now},
      isPublished:Boolean,
      price:{
@@ -35,10 +43,10 @@ async function createCourse(){
 const course = new Course({
     name:'paul',
     author:'Solomon',
-    tags:['Angular','Fronted'],
+    tags:[null],
     isPublished:true,
-    price:15,
-    category:'Networking'
+    price:25,
+    category:'web'
 });
 try {
     const result = await course.save();
