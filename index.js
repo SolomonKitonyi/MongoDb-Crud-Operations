@@ -17,7 +17,7 @@ mongoose.connect('mongodb://localhost/playground')
          type:Array,
          validate:{
              validator: function(v){
-                 return v.lenngth>0;
+                 return v && v.lenngth>0;
              },
              message:'The course should have atleast one tag'
          }
