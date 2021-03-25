@@ -31,7 +31,10 @@ mongoose.connect('mongodb://localhost/playground',{useNewUrlParser: true,useUnif
          type:Number,
          required: function(){return this.isPublished},
          min:20,
-         max:200
+         max:200,
+         get:v => Math.round(v),
+         set: v => Math.round(v)
+
      },
      category:{
          type:String,
@@ -49,7 +52,7 @@ const course = new Course({
     author:'Solomon',
     tags:['fronted'],
     isPublished:true,
-    price:25,
+    price:25.40,
     category:'weB'
 });
 try {
