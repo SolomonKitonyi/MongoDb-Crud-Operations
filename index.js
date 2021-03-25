@@ -16,11 +16,10 @@ mongoose.connect('mongodb://localhost/playground',{useNewUrlParser: true,useUnif
      tags: {
          type:Array,
          validate:{
-             isAsync:true,
-             validator:function(v,callback){
-                 setTimeout(() => {
-                   const result = v && v.length;
-                   callback(result)
+             //isAsync:true,
+             validator: function (v){
+                setTimeout(() => {
+                   return v && v.length;
                  }, 2000);
              },
              message:'The course should have atleast one tag'
@@ -37,6 +36,7 @@ mongoose.connect('mongodb://localhost/playground',{useNewUrlParser: true,useUnif
      category:{
          type:String,
          required:true,
+         lowercase:true,
          enum:['web','mobile','network']
      }
 
@@ -47,10 +47,10 @@ async function createCourse(){
 const course = new Course({
     name:'paul',
     author:'Solomon',
-    tags:[null],
+    tags:['fronted'],
     isPublished:true,
     price:25,
-    category:'web'
+    category:'weB'
 });
 try {
     const result = await course.save();
